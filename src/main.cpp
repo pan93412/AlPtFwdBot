@@ -59,21 +59,20 @@ int main(int argc, char* argv[]) {
 
   while (true) try {
     infoMessage("正在啟動...");
-    infoMessage("機器人名稱：" + bot.getApi().getMe()->username);
+    infoMessage("機器人名稱：" + api.getMe()->username);
     TgBot::TgLongPoll longPoll(bot);
     
-    // 計數器
-    int times = 0;
     while (true) {
-      std::cout << sdrstr("90") << "\rI: 已啟動長期輪詢 (Long Poll) - " + std::to_string(times) << sdrreset << std::flush;
+      std::cout << sdrstr("90") << "\rI: 已啟動長期輪詢 (Long Poll) "<< sdrreset << std::flush;
       longPoll.start();
       times++;
     }
   } catch (TgBot::TgException& e) {
     errorMessage("\n發生錯誤：" + std::string(e.what()));
-    warnMessage("正在嘗試重新啟動...");
+    warnMessage("正在重新啟動...");
     reset(api); // 重設訊息記錄
     continue;
   }
+
   return 0;
 }
