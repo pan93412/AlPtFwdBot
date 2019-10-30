@@ -61,9 +61,8 @@ int main(int argc, char* argv[]) {
     TgBot::TgLongPoll longPoll(bot);
     
     while (true) {
-      std::cout << sdrstr("90") << "\rI: 已啟動長期輪詢 (Long Poll) "<< sdrreset << std::flush;
+      std::cout << sdrstr("90") << "\rI: 已啟動長期輪詢 (Long Poll) " << sdrreset << std::flush;
       longPoll.start();
-      times++;
     }
   } catch (TgBot::TgException& e) {
     errorMessage("\n發生錯誤：" + std::string(e.what()));
