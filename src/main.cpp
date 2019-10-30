@@ -1,6 +1,4 @@
-#include <tgbot/tgbot.h>
 #include <cstdlib>
-#include "Messages.hpp"
 #include "BotMessageHandlerLibs.hpp"
 
 /*! \brief 重設訊息記錄

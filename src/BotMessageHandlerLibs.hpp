@@ -1,5 +1,6 @@
 #pragma once
 #include <tgbot/tgbot.h>
+#include <string>
 #include "Messages.hpp"
 
 /*! \brief 專門放置處理器 Lib 的命名空間 */

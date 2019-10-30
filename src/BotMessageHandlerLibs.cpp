@@ -1,6 +1,4 @@
-#include <tgbot/tgbot.h>
-#include <string>
-#include "Messages.hpp"
+#include "BotMessageHandlerLibs.hpp"
 
 namespace Handlers {
   void leaveChat(const TgBot::Api& api, TgBot::Message::Ptr msg, std::string triggerMsg) {
