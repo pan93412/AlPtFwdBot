@@ -44,8 +44,6 @@ int main(int argc, char* argv[]) {
   });
 
   if (forwardTo != 0) bot.getEvents().onAnyMessage([=](TgBot::Message::Ptr msg) {
-    Handlers::leaveChat(api, msg, "=~=~=~!LeAvE!~@@n!b"); // Handlers: 某個指令可以讓機器人離開
-
     // (1) 轉傳處等於來源處 (2) 接收者 == 0
     if (msg->chat->id == forwardTo || forwardTo == 0) return;
     auto fwdmsg = api.forwardMessage(forwardTo, msg->chat->id, msg->messageId);
