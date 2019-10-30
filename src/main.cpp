@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
       (boost::format(
           "來源：%1%\n傳送者：%2% %3%"
       ) % msg->chat->id % (msg->from->firstName + " " + msg->from->lastName) % mdUsername(msg->from->username)).str(),
-      false, fwdmsg->messageId,
+      true, fwdmsg->messageId,
       std::make_shared< TgBot::GenericReply >(), "Markdown"
     );
   });
