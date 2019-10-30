@@ -3,7 +3,7 @@ project(AlPtForwardBot)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra")
 set(Boost_USE_MULTITHREADED ON)
-set(SRC_LIST src/main.cpp src/Messages.cpp)
+set(SRC_LIST src/main.cpp src/Messages.cpp src/BotMessageHandlerLibs.cpp)
 
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)

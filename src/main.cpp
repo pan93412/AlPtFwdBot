@@ -1,6 +1,11 @@
 #include <tgbot/tgbot.h>
-#include "AlPtBot/Messages.hpp"
+#include "Messages.hpp"
+#include "BotMessageHandlerLibs.hpp"
 
+/*! \brief 重設訊息記錄
+ * 
+ * \param api getApi()
+ */
 void reset(TgBot::Api& api) {
   auto upd = api.getUpdates();
   api.getUpdates(upd[upd.size()-1]->updateId+1);
@@ -9,27 +14,33 @@ void reset(TgBot::Api& api) {
 int main(int argc, char* argv[]) {
   // 從 argv 取得 TG Bot Token
   if (argc < 2) {
-    errorMessage("錯誤：請設定 Token！");
+    errorMessage("請設定 Token！");
     return 1;
   }
     
   TgBot::Bot bot((std::string(argv[1])));
   auto api = bot.getApi();
-
+//   int64_t forwardTo = 0;
+//   
+//   bot.getEvents().onCommand("start", [=](TgBot::Message::Ptr msg) {
+//     api.sendMessage(msg->chat->id, "傳送訊息後會轉寄到 msg->text);
+//   });
   bot.getEvents().onAnyMessage([=](TgBot::Message::Ptr msg) {
-    if (msg->text.compare("機器人退散！！星爆氣流滾出斬！") == 0) {
-      api.leaveChat(msg->chat->id);
-      infoMessage("\n資訊：" + std::to_string(msg->from->id) + " 已讓這台機器人從 " + std::to_string(msg->chat->id) + " 滾蛋。");
-    }
-    api.sendMessage(msg->chat->id, "你傳的是 " + msg->text + " 嗎？");
+    Handlers::leaveChat(api, msg, "=~=~=~!LeAvE!~@@n!b"); // Handlers: 某個指令可以讓機器人離開
+    
+    /* 實際邏輯 */
+    if (msg->text.compare("") != 0) api.sendMessage(msg->chat->id, msg->text);
   });
 
   while (true) try {
-    infoMessage("正在啟動…… 機器人名稱：" + bot.getApi().getMe()->username);
+    infoMessage("正在啟動...");
+    infoMessage("機器人名稱：" + bot.getApi().getMe()->username);
     TgBot::TgLongPoll longPoll(bot);
-    int times = 0;機器人退散！！星爆氣流滾出斬！
+    
+    // 計數器
+    int times = 0;
     while (true) {
-      std::cout << sdrstr("90") << "\r已啟動長期輪詢 (Long Poll) - " + std::to_string(times) << sdrreset << std::flush;
+      std::cout << sdrstr("90") << "\r資訊：已啟動長期輪詢 (Long Poll) - " + std::to_string(times) << sdrreset << std::flush;
       longPoll.start();
       times++;
     }

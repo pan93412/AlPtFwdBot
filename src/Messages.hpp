@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <string>
+#include <boost/format.hpp>
 
 /*! \brief ANSI SDR 開頭 */
 inline const std::string sdrh = "\033[";
