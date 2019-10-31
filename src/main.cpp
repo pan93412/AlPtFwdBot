@@ -45,6 +45,7 @@ int main(int argc, char* argv[]) {
     // (1) 轉傳處等於來源處 (2) 接收者 == 0
     if (msg->chat->id == forwardTo || forwardTo == 0) return;
     auto fwdmsg = api.forwardMessage(forwardTo, msg->chat->id, msg->messageId);
+    api.sendMessage(msg->chat->id, "我們幫你轉傳出去了喔！👍");
     api.sendMessage(
       forwardTo,
       (boost::format(
