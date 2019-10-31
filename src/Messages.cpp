@@ -10,7 +10,7 @@ void errorMessage(const std::string message) {
 }
 
 void warnMessage(const std::string message) {
-  std::cout << sdrstr("1") << sdrstr("31") << "W: " << message << sdrreset << "\n";
+  std::cout << sdrstr("1") << sdrstr("33") << "W: " << message << sdrreset << "\n";
 }
 
 void infoMessage(const std::string message) {
