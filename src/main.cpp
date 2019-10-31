@@ -41,19 +41,30 @@ int main(int argc, char* argv[]) {
     api.sendMessage(msg->chat->id, std::to_string(msg->chat->id));
   });
 
+  bot.getEvents().onCommand("reply", [=](TgBot::Message::Ptr msg) {
+    std::smatch results;
+    std::regex_match(msg->text, results, std::regex("/reply.* (.+)-(.+) (.+)"));
+    try {
+      api.sendMessage(std::stoll(results[1].str()), results[3].str(), true, std::stol(results[2].str()));
+      api.sendMessage(msg->chat->id, "我們幫你轉傳出去了喔！👍", true, msg->messageId);
+    } catch (std::invalid_argument e) {
+      errorMessage("轉傳時發生錯誤。可能是格式錯誤？what()：" + std::string(e.what()));
+    }
+  });
+
   if (forwardTo != 0) bot.getEvents().onAnyMessage([=](TgBot::Message::Ptr msg) {
     // (1) 轉傳處等於來源處 (2) 接收者 == 0
     if (msg->chat->id == forwardTo || forwardTo == 0) return;
     auto fwdmsg = api.forwardMessage(forwardTo, msg->chat->id, msg->messageId);
-    api.sendMessage(msg->chat->id, "我們幫你轉傳出去了喔！👍");
     api.sendMessage(
       forwardTo,
       (boost::format(
-          "來源：%1%\n傳送者：%2% %3%"
-      ) % msg->chat->id % (msg->from->firstName + " " + msg->from->lastName) % mdUsername(msg->from->username)).str(),
+          "來源：%1%\n傳送者：%2% %3%\n若要回覆，請用 `/reply %1%-%4% 訊息` 。"
+      ) % msg->chat->id % (msg->from->firstName + " " + msg->from->lastName) % mdUsername(msg->from->username) % msg->messageId).str(),
       true, fwdmsg->messageId,
       std::make_shared< TgBot::GenericReply >(), "Markdown"
     );
+    api.sendMessage(msg->chat->id, "我們幫你轉傳出去了喔！👍", true, msg->messageId);
   });
 
   while (true) try {
