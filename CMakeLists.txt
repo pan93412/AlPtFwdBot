@@ -15,7 +15,8 @@ if (CURL_FOUND)
     add_definitions(-DHAVE_CURL)
 endif()
 
-include_directories(api/tgbot)
+add_subdirectory(api/tgbot)
+include_directories(api/tgbot/include)
 
 add_executable(
   ${PROJECT_NAME}
