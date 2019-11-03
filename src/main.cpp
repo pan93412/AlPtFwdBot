@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 
   bot.getEvents().onCommand("reply", [=](TgBot::Message::Ptr msg) {
     std::smatch results;
-    std::regex_match(msg->text, results, std::regex("/reply.* (.+)-(.+) (.+)"));
+    std::regex_match(msg->text, results, std::regex("/reply.* (\\d+?)-(\\d+?) (.+)"));
     try {
       api.sendMessage(std::stoll(results[1].str()), results[3].str(), true, std::stol(results[2].str()));
       api.sendMessage(msg->chat->id, "我們幫你轉傳出去了喔！👍", true, msg->messageId);
